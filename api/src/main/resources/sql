@@ -1,0 +1,17 @@
+INSERT INTO `tables`(`name`, `location_id`, `status_id`) VALUES 
+('D&D Zone',1,1),
+('Family Game Night', 1, 3),
+('Table A', 1,5),
+('Table B', 1,5),
+('Table C', 1,5),
+('D&D Zone',2,1),
+('Family Game Night', 2, 3),
+('Table 1', 2,5),
+('Table 2', 2,5),
+('Table 3', 2,5),
+('Magic Zone',3,2),
+('Family Game Night', 3, 3),
+('Table X', 3,5),
+('Table Y', 3,5),
+('Table Z', 3,5)
+

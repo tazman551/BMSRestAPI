@@ -1,0 +1,16 @@
+Application.java: This is the main application class that bootstraps the Spring Boot application.
+
+controller: This package contains the REST controllers which handle incoming HTTP requests.
+
+model: This package contains the domain entities or models representing the data in your application.
+
+repository: This package contains interfaces that extend Spring Data JPA repositories to interact with the database.
+service: This package contains the business logic of your application.
+
+service: This package contains the business logic related to the API.
+
+Beans: are the fundamental building blocks of a Spring application. They represent the various components of your application, 
+such as controllers, services, repositories, and more.
+Managed by the container:
+You don't typically create beans manually using the new keyword. Instead, you define them in your Spring configuration 
+(using XML, annotations, or Java configuration), and the Spring container takes care of instantiating, configuring, and assembling them.
