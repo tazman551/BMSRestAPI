@@ -2,6 +2,7 @@ package com.elderwood.co.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,12 @@ public class tableService {
     public reservations postTableReservation(String entity) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'postTableReservation'");
+    }
+
+
+
+    public Set<tables> getTableByLocationName(String locationName, String date) {
+        return tableRepository.findByLocName(locationName);
     }
 
    

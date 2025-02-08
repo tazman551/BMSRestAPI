@@ -2,6 +2,7 @@ package com.elderwood.co.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.elderwood.co.api.model.location;
 import com.elderwood.co.api.model.reservations;
 import com.elderwood.co.api.model.tableDTO;
 import com.elderwood.co.api.model.tables;
@@ -9,6 +10,7 @@ import com.elderwood.co.api.service.tableService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,12 @@ public class TableController {
     public List<tables> getAllTables() {
         return tService.getTables();
     }
+
+    @GetMapping("/api/tables/{locationName}")
+    public Set<tables> getMethodName(@PathVariable String locationName, @RequestParam String date) {
+        return tService.getTableByLocationName(locationName, date);
+    }
+    
     
 
     /*
