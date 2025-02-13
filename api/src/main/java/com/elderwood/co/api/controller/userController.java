@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api")
 public class userController {
 
+    @SuppressWarnings("unused")
     private UserRepository userRepo;
 
     public userController(UserRepository userRepository){

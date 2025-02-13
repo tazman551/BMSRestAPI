@@ -1,20 +1,19 @@
 package com.elderwood.co.api.service;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.elderwood.co.api.model.location;
+import com.elderwood.co.api.DTO.scheduleDTO;
 import com.elderwood.co.api.model.reservations;
 import com.elderwood.co.api.model.tables;
 import com.elderwood.co.api.repository.ReservationsRepository;
@@ -49,11 +48,22 @@ public class tableService {
 
 
 
-    public Set<tables> getTableByLocationName(String locationName, String date) throws ParseException {
+    public Set<scheduleDTO> getTableByLocationName(String locationName, String date) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date javaDate = dateFormat.parse(date);
-        logger.info(javaDate.toString());
-        return tableRepository.findByLocName(locationName);
+        Date javaDate = new Date(dateFormat.parse(date).getTime());
+
+        logger.info("Input date: " +javaDate.toString());
+
+        Set<scheduleDTO> sDTO = Collections.<scheduleDTO>emptySet();
+        //Get all tables
+        Set<tables> tables = tableRepository.findByLocName(locationName);
+        //Get all reservations for the tables
+        for(tables T: tables){
+            //sDTO.add(new scheduleDTO(T,T.getDow(),resRepository.findByTableIdAndDate(T.getId(),javaDate.toString())));
+            logger.info(String.valueOf(T.getId()));
+            logger.info(resRepository.findByTableIdAndDate(T.getId(),javaDate.toString()).iterator().next().getDate().toString());
+        }
+        return sDTO;
     }
 
    

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.elderwood.co.api.model.tableDTO;
 import com.elderwood.co.api.model.tables;
 
 @Repository

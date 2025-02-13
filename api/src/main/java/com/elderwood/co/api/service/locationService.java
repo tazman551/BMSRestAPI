@@ -1,6 +1,5 @@
 package com.elderwood.co.api.service;
 
-import java.rmi.registry.LocateRegistry;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
