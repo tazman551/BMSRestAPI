@@ -1,6 +1,8 @@
-package com.elderwood.co.api.model;
+package com.elderwood.co.api.DTO;
 
+import java.util.Set;
 
+import com.elderwood.co.api.model.daysofweek;
 
 public class tableDTO{
 
@@ -16,6 +18,7 @@ public class tableDTO{
         this.name = name;
         this.loc_name = loc_name;
         this.address = address;
+        Set<daysofweek> dow;
     }
 
 

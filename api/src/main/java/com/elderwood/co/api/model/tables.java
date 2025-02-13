@@ -3,18 +3,15 @@ package com.elderwood.co.api.model;
 
 import java.util.Set;
 
-import org.hibernate.FetchMode;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -26,11 +23,18 @@ public class tables {
     private String name;
     @ManyToOne
     private location location;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<tags> tags;
-    @ManyToOne(optional=false)
+    @ManyToOne(optional=false,fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private status status;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "schedule_day", 
+        joinColumns = { @JoinColumn(name = "table_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "dow_id") }
+    )
+    private Set<daysofweek> dow;
 
     public long getId() {
         return id;
@@ -61,6 +65,12 @@ public class tables {
     }
     public void setStatus(status status) {
         this.status = status;
+    }
+    public Set<daysofweek> getDow() {
+        return dow;
+    }
+    public void setDow(Set<daysofweek> dow) {
+        this.dow = dow;
     }
 
 

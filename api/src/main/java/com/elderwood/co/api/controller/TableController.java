@@ -8,6 +8,7 @@ import com.elderwood.co.api.model.tableDTO;
 import com.elderwood.co.api.model.tables;
 import com.elderwood.co.api.service.tableService;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class TableController {
     }
 
     @GetMapping("/api/tables/{locationName}")
-    public Set<tables> getMethodName(@PathVariable String locationName, @RequestParam String date) {
+    public Set<tables> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {
         return tService.getTableByLocationName(locationName, date);
     }
     
