@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -25,10 +26,10 @@ public class tables {
     private location location;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<tags> tags;
-    @ManyToOne(optional=false,fetch = FetchType.EAGER)
+    @ManyToOne(optional=true,fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private status status;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
         name = "schedule_day", 
         joinColumns = { @JoinColumn(name = "table_id") }, 
@@ -72,6 +73,6 @@ public class tables {
     public void setDow(Set<daysofweek> dow) {
         this.dow = dow;
     }
-
+    
 
 }

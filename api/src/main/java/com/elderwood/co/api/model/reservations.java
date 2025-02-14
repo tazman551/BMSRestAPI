@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,8 @@ public class reservations {
     @ManyToOne
     private user user;
     private Timestamp created;
-    private Date Date;
+    @Column(name = "res_date",nullable = false)
+    private Date resDate;
     private Time timeslot;
     private boolean reserved;
 
@@ -53,10 +55,10 @@ public class reservations {
         this.created = created;
     }
     public Date getDate() {
-        return Date;
+        return resDate;
     }
     public void setDate(Date date) {
-        Date = date;
+        resDate = date;
     }
     public Time getTimeslot() {
         return timeslot;

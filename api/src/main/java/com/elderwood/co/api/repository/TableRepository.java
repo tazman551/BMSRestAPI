@@ -20,5 +20,6 @@ public interface TableRepository extends JpaRepository<tables, Long> {
     @Query(value="select t from tables t JOIN FETCH t.location l where l.loc_name = ?1")
     Set<tables> findByLocName(String locationName);
 
+
 }
 

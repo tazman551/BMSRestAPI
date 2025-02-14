@@ -3,18 +3,35 @@ package com.elderwood.co.api.DTO;
 import java.util.Set;
 
 import com.elderwood.co.api.model.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class scheduleDTO {
 
     
     tables table;
-    Set<daysofweek> schedule;
-    Set<reservations> res;
+    Set<Object> res;
     
-    public scheduleDTO(tables t, Set<daysofweek> dow, Set<reservations> res) {
+    public scheduleDTO(tables t, Set<Object> res) {
         this.table = t;
-        this.schedule = dow;
         this.res = res;
     }
 
+    public tables getTable() {
+        return table;
+    }
+
+    public void setTable(tables table) {
+        this.table = table;
+    }
+
+    public Set<Object> getRes() {
+        return res;
+    }
+
+    public void setRes(Set<Object> res) {
+        this.res = res;
+    }
+
+    
 }

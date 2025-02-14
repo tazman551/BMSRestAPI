@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,15 @@ public class tableService {
         return tableRepository.getTables();
     }
 
-
+    @SuppressWarnings("unused")
+    public Set<Object> getResforTable(String tableID, String date) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date sqlDate = new Date(dateFormat.parse(date).getTime());
+        if(sqlDate == null){
+            throw new NullPointerException("Date can't be null");
+        }
+        return resRepository.findBytableIdAndResDate(tableID, sqlDate);
+    }
 
     public reservations postTableReservation(String entity) {
         // TODO Auto-generated method stub
@@ -48,23 +57,23 @@ public class tableService {
 
 
 
-    public Set<scheduleDTO> getTableByLocationName(String locationName, String date) throws ParseException {
+    public List<scheduleDTO> getTableByLocationName(String locationName, String date) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date javaDate = new Date(dateFormat.parse(date).getTime());
 
         logger.info("Input date: " +javaDate.toString());
 
-        Set<scheduleDTO> sDTO = Collections.<scheduleDTO>emptySet();
+        List<scheduleDTO> sDTO = new ArrayList<>(10);
         //Get all tables
         Set<tables> tables = tableRepository.findByLocName(locationName);
         //Get all reservations for the tables
         for(tables T: tables){
-            //sDTO.add(new scheduleDTO(T,T.getDow(),resRepository.findByTableIdAndDate(T.getId(),javaDate.toString())));
-            logger.info(String.valueOf(T.getId()));
-            logger.info(resRepository.findByTableIdAndDate(T.getId(),javaDate.toString()).iterator().next().getDate().toString());
+            sDTO.add(new scheduleDTO(T,resRepository.findByTableIdAndDate(T.getId(),javaDate)));
         }
         return sDTO;
     }
+
+
 
    
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,8 +33,14 @@ public class TableController {
         return tService.getTables();
     }
 
+    @GetMapping("/api/reservations/{TableID}") 
+    public Set<Object> getResforTable(@PathVariable String TableID, @RequestParam String date) throws ParseException {
+        return tService.getResforTable(TableID, date);
+    }
+    
+
     @GetMapping("/api/tables/{locationName}")
-    public Set<scheduleDTO> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {
+    public List<scheduleDTO> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {
         return tService.getTableByLocationName(locationName, date);
     }
     
@@ -46,6 +53,11 @@ public class TableController {
     public reservations postMethodName(@RequestBody String entity) {
         return tService.postTableReservation(entity);
         
+    }
+
+    @GetMapping("favicon.ico")
+    @ResponseBody
+    void returnNoFavicon() {
     }
     
 }
