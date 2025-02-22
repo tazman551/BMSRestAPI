@@ -57,20 +57,10 @@ public class tableService {
 
 
 
-    public List<scheduleDTO> getTableByLocationName(String locationName, String date) throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date javaDate = new Date(dateFormat.parse(date).getTime());
+    public Set<tables> getTableByLocationName(String locationName) throws ParseException {
+      
+        return tableRepository.findByLocName(locationName);
 
-        logger.info("Input date: " +javaDate.toString());
-
-        List<scheduleDTO> sDTO = new ArrayList<>(10);
-        //Get all tables
-        Set<tables> tables = tableRepository.findByLocName(locationName);
-        //Get all reservations for the tables
-        for(tables T: tables){
-            sDTO.add(new scheduleDTO(T,resRepository.findByTableIdAndDate(T.getId(),javaDate)));
-        }
-        return sDTO;
     }
 
 

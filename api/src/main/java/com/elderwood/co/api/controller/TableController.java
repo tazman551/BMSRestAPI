@@ -40,8 +40,8 @@ public class TableController {
     
 
     @GetMapping("/api/tables/{locationName}")
-    public List<scheduleDTO> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {
-        return tService.getTableByLocationName(locationName, date);
+    public Set<tables> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {
+        return tService.getTableByLocationName(locationName);
     }
     
     
