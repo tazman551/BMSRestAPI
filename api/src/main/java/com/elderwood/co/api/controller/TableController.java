@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,11 +35,24 @@ public class TableController {
         return tService.getTables();
     }
 
+    @GetMapping("/api/table/{TableID}")
+    public ResponseEntity<?> getAllTables(@PathVariable int TableID, @RequestParam String date) {
+
+        // ResponseEntity
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(tService.getTableByID(TableID, date.toLowerCase()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.OK).body(e);
+        }
+        
+    }
+
     @GetMapping("/api/reservations/{TableID}") 
     public Set<Object> getResforTable(@PathVariable String TableID, @RequestParam String date) throws ParseException {
         return tService.getResforTable(TableID, date);
     }
-    
+
+
 
     @GetMapping("/api/tables/{locationName}")
     public Set<tables> getMethodName(@PathVariable String locationName, @RequestParam String date) throws ParseException {

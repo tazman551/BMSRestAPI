@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elderwood.co.api.DTO.scheduleDTO;
+import com.elderwood.co.api.model.daysofweek;
 import com.elderwood.co.api.model.reservations;
 import com.elderwood.co.api.model.tables;
 import com.elderwood.co.api.repository.ReservationsRepository;
@@ -27,14 +29,14 @@ public class tableService {
 
     private static final Logger logger = LoggerFactory.getLogger(tableService.class);
     
-    @Autowired
     private TableRepository tableRepository;
-    
-    @Autowired
     private ReservationsRepository resRepository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    public tableService(TableRepository tableRepo, ReservationsRepository resRepo){
+        this.tableRepository = tableRepo;
+        this.resRepository = resRepo;
+
+    }
 
     public List<tables> getTables() {
         return tableRepository.getTables();
@@ -60,7 +62,24 @@ public class tableService {
     public Set<tables> getTableByLocationName(String locationName) throws ParseException {
       
         return tableRepository.findByLocName(locationName);
+    }
 
+
+    public tables getTableByID(int tableID, String date) throws NullPointerException{
+        System.out.println(date);
+        tables t = tableRepository.findById(tableID);
+
+        Iterator<daysofweek> dow = t.getDow().iterator();
+        while (dow.hasNext()) {
+            daysofweek ele = dow.next();
+            if(!ele.isEqual(date)) {
+                dow.remove();
+            }
+        }
+
+        System.out.println(t.getDow().toString());
+
+        return t;
     }
 
 
