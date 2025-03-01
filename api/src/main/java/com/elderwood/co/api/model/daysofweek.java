@@ -34,9 +34,5 @@ public class daysofweek {
     public void setTime(Time time) {
         this.time = time;
     }
-
-    public boolean isEqual(String date){
-        return (this.getDayString() == date);
-    } 
     
 }

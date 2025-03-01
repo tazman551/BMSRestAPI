@@ -72,7 +72,7 @@ public class tableService {
         Iterator<daysofweek> dow = t.getDow().iterator();
         while (dow.hasNext()) {
             daysofweek ele = dow.next();
-            if(!ele.isEqual(date)) {
+            if(!ele.equals(date)) {
                 dow.remove();
             }
         }
